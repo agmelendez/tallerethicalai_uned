@@ -52,6 +52,14 @@
         .step-pill { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: #e2e8f0; color: #002f5d; }
         .methodology-card:hover { border-color: var(--ethical-cyan); transform: translateY(-2px); }
         .uned-header { background: linear-gradient(135deg, #002f5d 0%, #004a8f 100%); }
+
+        /* Materiales Explorer */
+        .mat-folder-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .mat-folder-card.active-folder { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+        .mat-explorer-panel { transition: opacity 0.25s ease; }
+        .mat-file-row:hover .mat-download-btn { opacity: 1; }
+        #mat-explorer { transition: max-height 0.3s ease; }
+        .mat-subfolder-btn:hover { transform: translateY(-2px); }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
@@ -67,6 +75,7 @@
                 </div>
                 <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600">
                     <a href="#repositorio" class="hover:text-[#00b4d8] transition-colors">Recursos</a>
+                    <a href="#materiales" class="hover:text-[#00b4d8] transition-colors">Materiales</a>
                     <a href="#ruta" class="hover:text-[#00b4d8] transition-colors">Ruta</a>
                     <a href="#agenda" class="hover:text-[#00b4d8] transition-colors">Agenda</a>
                     <a href="#roles" class="hover:text-[#00b4d8] transition-colors">Roles</a>
@@ -139,6 +148,38 @@
                         </div>
                     </div>
                     <div class="absolute -right-10 -bottom-10 text-[180px] opacity-10 pointer-events-none">🏢</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERIALES DESCARGABLES -->
+        <section id="materiales" class="scroll-mt-24">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-2">📂 Materiales Descargables</h2>
+                <p class="text-slate-600 max-w-3xl">Seleccione la carpeta de su curso para explorar y descargar todos los materiales del taller. Cada carpeta contiene documentos específicos y documentos generales compartidos.</p>
+            </div>
+
+            <!-- Folder cards grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6" id="mat-folder-cards">
+                <!-- Injected by JS -->
+            </div>
+
+            <!-- File Explorer Panel -->
+            <div id="mat-explorer" class="hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <!-- Explorer toolbar / breadcrumb -->
+                <div class="flex items-center gap-3 px-6 py-4 bg-slate-50 border-b border-slate-200 flex-wrap gap-y-2">
+                    <button id="mat-back-btn" style="display:none"
+                        class="flex items-center gap-1.5 text-sm font-semibold text-[#002f5d] hover:text-[#00b4d8] transition-colors py-1.5 px-3 rounded-lg hover:bg-white border border-slate-200 shadow-sm">
+                        ← Atrás
+                    </button>
+                    <div id="mat-breadcrumb" class="flex items-center gap-2 text-sm flex-wrap flex-grow"></div>
+                    <button id="mat-close-btn"
+                        class="ml-auto w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-all font-bold text-base flex-shrink-0"
+                        title="Cerrar explorador">✕</button>
+                </div>
+                <!-- Content area -->
+                <div id="mat-content" class="p-6 min-h-[280px]">
+                    <!-- Injected by JS -->
                 </div>
             </div>
         </section>
@@ -549,6 +590,296 @@
                     }
                 }
             });
+
+            // --- MATERIALES DESCARGABLES ---
+            const materialesData = [
+                {
+                    id: 'empresarialidad', name: 'Empresarialidad', icon: '🏢',
+                    bg: 'linear-gradient(135deg, #002f5d 0%, #004a8f 100%)', accent: '#002f5d',
+                    desc: 'Unidad didáctica, metodología de casos y podcasts del curso Empresarialidad.',
+                    basePath: 'Materiales/Empresarialidad/Empresarialidad',
+                    items: [
+                        { name: '04121.pdf', type: 'pdf' },
+                        { name: 'ENLACES-PODCATS-04121.docx', type: 'docx' },
+                        { name: 'Método de Casos_FINAL.pdf', type: 'pdf' },
+                        { name: 'UD4121_Empresarialidad_VEUNED.pdf', type: 'pdf' },
+                        { name: 'Documentos generales', type: 'folder',
+                          basePath: 'Materiales/Empresarialidad/Empresarialidad/Documentos generales',
+                          items: [
+                            { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
+                            { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
+                            { name: 'Declaración de uso de Inteligencia Artificial.docx', type: 'docx' },
+                            { name: 'Forms Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de participantes por grupo.xlsx', type: 'xlsx' },
+                            { name: 'Programa del Taller.docx', type: 'docx' },
+                            { name: 'Tabla con herramientas web para construir prompts.docx', type: 'docx' },
+                          ]
+                        }
+                    ]
+                },
+                {
+                    id: 'neuroeducacion', name: 'Neuroeducación', icon: '🧠',
+                    bg: 'linear-gradient(135deg, #0077b6 0%, #00b4d8 100%)', accent: '#0077b6',
+                    desc: 'Guías de trabajo, orientaciones académicas y lecturas de neurociencia.',
+                    basePath: 'Materiales/Neuroeducación/Neuroeducación',
+                    items: [
+                        { name: 'Orientación Académica Neuroeducación IC 2026.pdf', type: 'pdf' },
+                        { name: 'Guía de Trabajo Unidad 1 Diario de un cerebro.pdf', type: 'pdf' },
+                        { name: 'Guía  de Trabajo Unidad 1 Neurocápsula.pdf', type: 'pdf' },
+                        { name: 'Generalidades Neurociencia_Cátedra Psicología Educativa.pdf', type: 'pdf' },
+                        { name: 'Documentos generales', type: 'folder',
+                          basePath: 'Materiales/Neuroeducación/Neuroeducación/Documentos generales',
+                          items: [
+                            { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
+                            { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
+                            { name: 'Declaración de uso de Inteligencia Artificial.docx', type: 'docx' },
+                            { name: 'Forms Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de participantes por grupo.xlsx', type: 'xlsx' },
+                            { name: 'Programa del Taller.docx', type: 'docx' },
+                            { name: 'Tabla con herramientas web para construir prompts.docx', type: 'docx' },
+                          ]
+                        }
+                    ]
+                },
+                {
+                    id: 'programacion-web', name: 'Programación Web', icon: '💻',
+                    bg: 'linear-gradient(135deg, #4338ca 0%, #6366f1 100%)', accent: '#4338ca',
+                    desc: 'Unidad didáctica, talleres prácticos y orientaciones del curso Programación en Web.',
+                    basePath: 'Materiales/ProgramaciónWeb/ProgramaciónWeb',
+                    items: [
+                        { name: 'Unidad Didactica Programacion Web.pdf', type: 'pdf' },
+                        { name: 'Orientacion Academica 03098 Programacion en Web.pdf', type: 'pdf' },
+                        { name: 'Taller No.1-03098-3C-2025.pdf', type: 'pdf' },
+                        { name: 'Taller No.2-03098-3C-2025.pdf', type: 'pdf' },
+                        { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
+                        { name: 'Documentos generales', type: 'folder',
+                          basePath: 'Materiales/ProgramaciónWeb/ProgramaciónWeb/Documentos generales',
+                          items: [
+                            { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
+                            { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
+                            { name: 'Declaración de uso de Inteligencia Artificial.docx', type: 'docx' },
+                            { name: 'Forms Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de participantes por grupo.xlsx', type: 'xlsx' },
+                            { name: 'Programa del Taller.docx', type: 'docx' },
+                            { name: 'Tabla con herramientas web para construir prompts.docx', type: 'docx' },
+                          ]
+                        }
+                    ]
+                },
+                {
+                    id: 'taller-tfg', name: 'Taller Investigación TFG', icon: '🔬',
+                    bg: 'linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%)', accent: '#0d9488',
+                    desc: 'Materiales para el taller de investigación y elaboración del Trabajo Final de Graduación.',
+                    basePath: 'Materiales/Taller de investigación TFG/Taller de investigación TFG',
+                    items: [
+                        { name: 'OA_Taller_TFG_2026.pdf', type: 'pdf' },
+                        { name: 'Explicacion_Dinamica_IA.pdf', type: 'pdf' },
+                        { name: 'Exploración_básica_IA_elicit.pdf', type: 'pdf' },
+                        { name: 'Exploraciónbásica_IA_ChatGpt.pdf', type: 'pdf' },
+                        { name: 'infografia_2.png', type: 'image' },
+                        { name: 'Documentos generales', type: 'folder',
+                          basePath: 'Materiales/Taller de investigación TFG/Taller de investigación TFG/Documentos generales',
+                          items: [
+                            { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
+                            { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
+                            { name: 'Declaración de uso de Inteligencia Artificial.docx', type: 'docx' },
+                            { name: 'Forms Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de chequeo.docx', type: 'docx' },
+                            { name: 'Lista de participantes por grupo.xlsx', type: 'xlsx' },
+                            { name: 'Programa del Taller.docx', type: 'docx' },
+                            { name: 'Tabla con herramientas web para construir prompts.docx', type: 'docx' },
+                          ]
+                        }
+                    ]
+                }
+            ];
+
+            function matFileIcon(type) {
+                return { pdf: '📄', docx: '📝', xlsx: '📊', image: '🖼️', folder: '📁' }[type] || '📄';
+            }
+            function matFileLabel(type) {
+                return { pdf: 'PDF', docx: 'Word', xlsx: 'Excel', image: 'Imagen' }[type] || type.toUpperCase();
+            }
+            function matFileBadge(type) {
+                return { pdf: '#fee2e2:#b91c1c', docx: '#dbeafe:#1d4ed8', xlsx: '#dcfce7:#15803d', image: '#f3e8ff:#7e22ce' }[type] || '#f1f5f9:#475569';
+            }
+            function matEncodePath(path) {
+                return path.split('/').map(s => encodeURIComponent(s)).join('/');
+            }
+
+            let matStack = [];
+
+            function matRenderCards() {
+                const container = document.getElementById('mat-folder-cards');
+                materialesData.forEach((folder, idx) => {
+                    const files = folder.items.filter(i => i.type !== 'folder').length;
+                    const folders = folder.items.filter(i => i.type === 'folder').length;
+                    const card = document.createElement('button');
+                    card.className = 'mat-folder-card text-left p-6 rounded-2xl text-white shadow-md hover:shadow-xl focus:outline-none relative overflow-hidden group';
+                    card.style.background = folder.bg;
+                    card.dataset.idx = idx;
+                    card.setAttribute('aria-label', 'Abrir carpeta ' + folder.name);
+                    card.innerHTML = `
+                        <div class="absolute -right-3 -bottom-3 text-8xl opacity-10 group-hover:opacity-20 transition-all select-none pointer-events-none">${folder.icon}</div>
+                        <div class="relative z-10">
+                            <div class="text-4xl mb-3">${folder.icon}</div>
+                            <h3 class="text-base font-bold leading-tight mb-1">${folder.name}</h3>
+                            <p class="text-xs text-white/70 mb-4 leading-relaxed line-clamp-2">${folder.desc}</p>
+                            <div class="flex items-center gap-2 text-xs font-semibold text-white/80 mb-4">
+                                <span class="bg-white/20 px-2 py-0.5 rounded-full">${files} archivo${files !== 1 ? 's' : ''}</span>
+                                ${folders > 0 ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${folders} carpeta${folders !== 1 ? 's' : ''}</span>` : ''}
+                            </div>
+                            <div class="flex items-center gap-1.5 text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all w-full justify-center py-2 rounded-xl">
+                                Abrir carpeta →
+                            </div>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => matOpenFolder(idx));
+                    container.appendChild(card);
+                });
+            }
+
+            function matOpenFolder(idx) {
+                const folder = materialesData[idx];
+                matStack = [{ label: folder.name, items: folder.items, basePath: folder.basePath, folderIdx: idx }];
+                document.querySelectorAll('.mat-folder-card').forEach((c, i) => {
+                    c.classList.toggle('active-folder', i === idx);
+                    if (i === idx) {
+                        c.style.outline = '3px solid white';
+                        c.style.outlineOffset = '3px';
+                    } else {
+                        c.style.outline = '';
+                        c.style.outlineOffset = '';
+                    }
+                });
+                const explorer = document.getElementById('mat-explorer');
+                explorer.classList.remove('hidden');
+                matRenderExplorer();
+                setTimeout(() => explorer.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+            }
+
+            function matNavigateInto(subfolder) {
+                matStack.push({ label: subfolder.name, items: subfolder.items, basePath: subfolder.basePath, folderIdx: matStack[0].folderIdx });
+                matRenderExplorer();
+            }
+
+            function matGoBack() {
+                if (matStack.length > 1) { matStack.pop(); matRenderExplorer(); }
+                else matCloseExplorer();
+            }
+
+            function matCloseExplorer() {
+                document.getElementById('mat-explorer').classList.add('hidden');
+                document.querySelectorAll('.mat-folder-card').forEach(c => {
+                    c.classList.remove('active-folder');
+                    c.style.outline = '';
+                    c.style.outlineOffset = '';
+                });
+                matStack = [];
+            }
+
+            function matRenderExplorer() {
+                const current = matStack[matStack.length - 1];
+                const folder = materialesData[current.folderIdx];
+                const backBtn = document.getElementById('mat-back-btn');
+
+                // Breadcrumb
+                const bc = document.getElementById('mat-breadcrumb');
+                let bcHTML = `<span class="text-slate-400 font-medium">Materiales</span>`;
+                matStack.forEach((s, i) => {
+                    bcHTML += `<span class="text-slate-300 mx-1">/</span>`;
+                    if (i === matStack.length - 1) {
+                        bcHTML += `<span class="font-bold" style="color:${folder.accent}">${s.label}</span>`;
+                    } else {
+                        bcHTML += `<button class="mat-bread-btn hover:underline font-medium text-slate-600" data-depth="${i}">${s.label}</button>`;
+                    }
+                });
+                bc.innerHTML = bcHTML;
+                document.querySelectorAll('.mat-bread-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        matStack = matStack.slice(0, parseInt(btn.dataset.depth) + 1);
+                        matRenderExplorer();
+                    });
+                });
+
+                // Back button
+                backBtn.style.display = matStack.length > 1 ? 'flex' : 'none';
+
+                // Content
+                const subfolders = current.items.filter(i => i.type === 'folder');
+                const files = current.items.filter(i => i.type !== 'folder');
+                let html = '';
+
+                if (subfolders.length > 0) {
+                    html += `
+                    <div class="mb-8">
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <span class="w-4 h-px bg-slate-300 inline-block"></span>Carpetas<span class="flex-grow h-px bg-slate-100 inline-block"></span>
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
+                            ${subfolders.map(f => `
+                                <button class="mat-subfolder-btn group flex flex-col items-center text-center p-5 rounded-2xl border-2 border-slate-100 hover:border-slate-300 bg-slate-50 hover:bg-white transition-all focus:outline-none shadow-sm hover:shadow-md"
+                                    data-sfname="${f.name}">
+                                    <span class="text-5xl mb-2 group-hover:scale-110 transition-transform">📁</span>
+                                    <span class="text-xs font-bold text-slate-700 leading-tight">${f.name}</span>
+                                    <span class="text-[10px] text-slate-400 mt-1">${f.items.length} archivos</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>`;
+                }
+
+                if (files.length > 0) {
+                    html += `
+                    <div>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <span class="w-4 h-px bg-slate-300 inline-block"></span>Archivos<span class="flex-grow h-px bg-slate-100 inline-block"></span>
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            ${files.map(f => {
+                                const [bgColor, textColor] = matFileBadge(f.type).split(':');
+                                const filePath = matEncodePath(current.basePath + '/' + f.name);
+                                return `
+                                <div class="mat-file-row flex items-center gap-3 p-4 rounded-xl border border-slate-100 bg-white hover:border-slate-200 hover:shadow-sm transition-all group">
+                                    <div class="text-3xl flex-shrink-0 select-none">${matFileIcon(f.type)}</div>
+                                    <div class="flex-grow min-w-0">
+                                        <p class="text-xs font-semibold text-slate-700 truncate leading-snug" title="${f.name}">${f.name}</p>
+                                        <span class="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full" style="background:${bgColor};color:${textColor}">
+                                            ${matFileLabel(f.type)}
+                                        </span>
+                                    </div>
+                                    <a href="${filePath}" download="${f.name}"
+                                        class="mat-download-btn flex-shrink-0 flex items-center gap-1 text-xs font-bold px-3 py-2 rounded-lg bg-slate-100 hover:text-white transition-all whitespace-nowrap"
+                                        style="--hover-bg:${folder.accent}"
+                                        onmouseover="this.style.background='${folder.accent}';this.style.color='white'"
+                                        onmouseout="this.style.background='';this.style.color=''"
+                                        title="Descargar ${f.name}">
+                                        ⬇ Descargar
+                                    </a>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>`;
+                }
+
+                document.getElementById('mat-content').innerHTML = html;
+
+                // Subfolder click handlers
+                document.querySelectorAll('.mat-subfolder-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const sf = current.items.find(i => i.name === btn.dataset.sfname && i.type === 'folder');
+                        if (sf) matNavigateInto(sf);
+                    });
+                });
+            }
+
+            // Init materials
+            matRenderCards();
+            document.getElementById('mat-back-btn').addEventListener('click', matGoBack);
+            document.getElementById('mat-close-btn').addEventListener('click', matCloseExplorer);
 
             // --- CHECKLIST LOGIC ---
             document.querySelectorAll('.toggle-done').forEach(btn => {
