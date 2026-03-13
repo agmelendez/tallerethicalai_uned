@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de IA Generativa - UNED & EthicalAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Chosen Palette: EthicalAI Official Colors (Deep Navy #002f5d, Cyan #00b4d8, White #ffffff) -->
+    <!-- Application Structure Plan: Una SPA diseñada como centro de comando operativo. 
+         1. Cabecera Institucional (UNED + EthicalAI).
+         2. Logística y Ecosistema Digital (Teams + Web Proyecto).
+         3. Metodología Paso a Paso (El ciclo de co-creación).
+         4. Agenda Interactiva de la Jornada.
+         5. Roles y Actividades Detalladas (Tareas específicas por fase).
+         6. Marco Ético PIIA (Visualización dinámica).
+         7. Checklist de Entregables finales.
+         Este diseño prioriza la navegación rápida mediante anclas y una arquitectura de información que divide la jornada en hitos claros para cada integrante del equipo. -->
+    <!-- Visualization & Content Choices: 
+         1. Ecosistema Digital -> Tarjetas de acción rápida vinculando carpetas de Teams y la Web oficial.
+         2. Metodología -> Gráfico de flujo lineal con Tailwind.
+         3. Roles -> Sistema Maestro-Detalle con pestañas para actividades de Mañana/Tarde.
+         4. Marco Ético -> Gráfico de Anillo (Chart.js) para los 9 principios de la PIIA. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Logos are loaded from official UNED assets. -->
+
+    <style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --uned-blue: #002f5d;
+            --ethical-cyan: #00b4d8;
+        }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 400px; max-width: 600px; }
+        }
+
+        .active-role-btn { background-color: var(--ethical-cyan); color: white; border-color: var(--ethical-cyan); }
+        .accordion-content { transition: max-height 0.3s ease-in-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
+        .accordion-content.open { max-height: 800px; padding-top: 1rem; padding-bottom: 1rem; }
+        
+        .step-pill { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: #e2e8f0; color: #002f5d; }
+        .methodology-card:hover { border-color: var(--ethical-cyan); transform: translateY(-2px); }
+        .uned-header { background: linear-gradient(135deg, #002f5d 0%, #004a8f 100%); }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <img src="./Logos/EthicaIApng.png" alt="EthicalAI Logo" class="h-10 w-auto object-contain">
+                    <div class="h-8 w-px bg-slate-300 hidden sm:block"></div>
+                    <span class="text-sm font-bold text-[#002f5d] leading-tight hidden sm:block">PROYECTO<br>ETHICALAI</span>
+                </div>
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+                    <a href="#repositorio" class="hover:text-[#00b4d8] transition-colors">Recursos</a>
+                    <a href="#ruta" class="hover:text-[#00b4d8] transition-colors">Ruta</a>
+                    <a href="#agenda" class="hover:text-[#00b4d8] transition-colors">Agenda</a>
+                    <a href="#roles" class="hover:text-[#00b4d8] transition-colors">Roles</a>
+                    <a href="#etica" class="hover:text-[#00b4d8] transition-colors">Marco Ético</a>
+                    <a href="https://www.ethicalaiucr.info/index.php" target="_blank" class="px-4 py-2 bg-[#00b4d8] text-white rounded-lg hover:bg-[#0097a7] transition-all shadow-md">Web Oficial</a>
+                    <div class="flex items-center gap-4 ml-2 pl-4 border-l border-slate-200">
+                        <img src="./Logos/UNED.png" alt="UNED Logo" class="h-10 w-auto object-contain">
+                        <img src="./Logos/Erasmus.png" alt="Erasmus Logo" class="h-10 w-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="uned-header text-white py-16 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-block px-4 py-1.5 bg-[#00b4d8]/20 border border-[#00b4d8]/40 rounded-full text-[#00b4d8] text-xs font-bold uppercase tracking-widest mb-6">
+                Erasmus+ Work Package 3: Formación Docente
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                IA Generativa y Creación de Apoyos Educativos
+            </h1>
+            <p class="text-lg md:text-xl text-slate-200 font-light max-w-3xl mx-auto">
+                Espacio de desarrollo profesional para el diseño de experiencias de aprendizaje éticas, responsables y trazables bajo el marco de la UNED.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- 1. Logística y Digital -->
+        <section id="repositorio" class="scroll-mt-24">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Info Panel -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <h2 class="text-2xl font-bold text-[#002f5d] mb-4">📍 Datos de la Sesión</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">📅</span>
+                                <div><p class="font-bold text-sm">Sábado 14 de marzo, 2026</p><p class="text-xs text-slate-500">8:00 a.m. - 4:30 p.m.</p></div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">📍</span>
+                                <div><p class="font-bold text-sm">Sede San José</p><p class="text-xs text-slate-500">Barrio Escalante</p></div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">🍲</span>
+                                <div><p class="font-bold text-sm">Alimentación</p><p class="text-xs text-slate-500">Refrigerios (9:30/15:00) y Almuerzo (12:00)</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Digital Ecosystem -->
+                <div class="lg:col-span-2 bg-[#002f5d] p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">🌐 Repositorio Central en Teams</h2>
+                        <p class="text-slate-300 mb-8 max-w-xl">Todo el flujo de información se gestiona a través de Microsoft Teams. Asegúrese de tener acceso a las siguientes carpetas:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/20 transition-all cursor-default">
+                                <h3 class="font-bold text-lg flex items-center gap-2 mb-2">📁 Materiales de Clase</h3>
+                                <p class="text-xs text-slate-300">Encuentre guías de prompting, lecturas de apoyo y manuales técnicos de IA.</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/20 transition-all cursor-default">
+                                <h3 class="font-bold text-lg flex items-center gap-2 mb-2">📤 Evidencias de los Grupos</h3>
+                                <p class="text-xs text-slate-300">Espacio obligatorio para subir su carpeta de equipo con los 3 entregables finales.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -right-10 -bottom-10 text-[180px] opacity-10 pointer-events-none">🏢</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Ruta Metodológica Paso a Paso -->
+        <section id="ruta" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-4">🛠️ Ruta Metodológica del Taller</h2>
+                <p class="text-slate-600 max-w-3xl mx-auto italic">Diseñado bajo el enfoque de aprendizaje activo de la UNED para la creación de Apoyos Educativos (PMV).</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-slate-400 shadow-sm methodology-card transition-all">
+                    <div class="step-pill mb-4">01</div>
+                    <h3 class="font-bold text-slate-800 mb-2">Conceptualización</h3>
+                    <p class="text-sm text-slate-600">Identificación de necesidades de cátedra y alineación con los Resultados de Aprendizaje (RA).</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-[#00b4d8] shadow-sm methodology-card transition-all">
+                    <div class="step-pill !bg-[#00b4d8]/10 !text-[#00b4d8] mb-4">02</div>
+                    <h3 class="font-bold text-slate-800 mb-2">Diseño y Prompting</h3>
+                    <p class="text-sm text-slate-600">Interacción técnica con la IA aplicando estructuras avanzadas y validación iterativa.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-amber-500 shadow-sm methodology-card transition-all">
+                    <div class="step-pill !bg-amber-100 !text-amber-700 mb-4">03</div>
+                    <h3 class="font-bold text-slate-800 mb-2">Curaduría Humana</h3>
+                    <p class="text-sm text-slate-600">Revisión crítica, edición manual y ajuste de precisión académica del contenido generado.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-teal-600 shadow-sm methodology-card transition-all">
+                    <div class="step-pill !bg-teal-100 !text-teal-700 mb-4">04</div>
+                    <h3 class="font-bold text-slate-800 mb-2">Trazabilidad y Ética</h3>
+                    <p class="text-sm text-slate-600">Documentación de la bitácora y validación contra los 9 principios éticos institucionales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Agenda Interactiva -->
+        <section id="agenda" class="scroll-mt-24">
+            <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-[#002f5d] mb-2">⏱️ Agenda de Trabajo</h2>
+                    <p class="text-slate-600">Siga el ritmo de la sesión para asegurar la entrega de su producto final.</p>
+                </div>
+                <div class="text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full uppercase tracking-widest">Sábado Intensivo</div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" id="agenda-container">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- 4. Roles y Actividades Detalladas -->
+        <section id="roles" class="scroll-mt-24 bg-[#f1f5f9] p-8 md:p-12 rounded-3xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-2">👥 Actividades Detalladas por Rol</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Seleccione su rol para ver las tareas específicas que liderará en cada fase del taller.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-10">
+                <!-- Selector List -->
+                <div class="w-full lg:w-1/3 flex flex-col gap-3" id="role-buttons">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <!-- Details Panel -->
+                <div class="w-full lg:w-2/3 bg-white p-8 rounded-3xl shadow-sm border border-slate-200 min-h-[450px]" id="role-details-panel">
+                    <div class="flex items-center justify-center h-full text-slate-400">
+                        <p>Seleccione un rol de la izquierda para desplegar su manual operativo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Marco Ético (PIIA) -->
+        <section id="etica" class="scroll-mt-24">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-4">⚖️ Gobernanza Ética: Los 9 Principios</h2>
+                <p class="text-slate-600 max-w-3xl mx-auto">La Política Institucional de IA de la UNED (PIIA) es el filtro final de su trabajo. Interactúe con el gráfico para explorar cada pilar.</p>
+            </div>
+
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 flex flex-col lg:flex-row items-center gap-16">
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <div class="chart-container">
+                        <canvas id="ethicsChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <div id="ethics-detail" class="bg-slate-50 border-l-4 border-[#00b4d8] p-8 rounded-r-2xl h-full min-h-[250px] flex flex-col justify-center transition-all">
+                        <h3 class="text-2xl font-bold text-[#002f5d] mb-4">Toque un principio en el gráfico</h3>
+                        <p class="text-slate-600 leading-relaxed italic">Cada segmento representa un valor irrenunciable en la mediación con inteligencia artificial dentro de la universidad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Entregables Finales -->
+        <section id="entregables" class="scroll-mt-24 mb-20">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-2">📋 Lista de Cotejo de Entrega</h2>
+                <p class="text-slate-600">Al finalizar, su equipo deberá cargar estos tres documentos en la carpeta de **Evidencias** en Teams.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#00b4d8]/5 rounded-bl-full group-hover:bg-[#00b4d8]/10 transition-all"></div>
+                    <div class="text-4xl mb-6">📄</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight">Apoyo Educativo (PMV)</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow leading-relaxed">El material final listo para el estudiante. Incluye declaración de uso de IA y logo institucional.</p>
+                    <button class="w-full py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-[#002f5d] hover:text-white transition-all toggle-done">Pendiente de Subir</button>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full group-hover:bg-amber-500/10 transition-all"></div>
+                    <div class="text-4xl mb-6">📓</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight">Bitácora de Trazabilidad</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow leading-relaxed">Registro detallado de prompts, respuestas de la IA y los ajustes críticos realizados por el equipo.</p>
+                    <button class="w-full py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-[#002f5d] hover:text-white transition-all toggle-done">Pendiente de Subir</button>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full group-hover:bg-teal-500/10 transition-all"></div>
+                    <div class="text-4xl mb-6">🖋️</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight">Certificado PIIA</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow leading-relaxed">Formulario de lista de cotejo confirmando el cumplimiento de los 9 principios éticos de la UNED.</p>
+                    <button class="w-full py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-[#002f5d] hover:text-white transition-all toggle-done">Pendiente de Subir</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#002f5d] text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex-1 flex justify-center md:justify-start">
+                    <img src="./Logos/Confianciado UE.png" alt="Cofinanciado por la UE" class="h-16 w-auto object-contain rounded-sm">
+                </div>
+                <div class="flex-1 text-center">
+                    <p class="text-slate-300 font-medium mb-2 text-sm">"La inteligencia artificial potencia nuestra humanidad, no la sustituye."</p>
+                    <p class="text-xs uppercase tracking-widest text-slate-500">Taller IA Generativa • Proyecto EthicalAI Erasmus+ • 2026</p>
+                </div>
+                <div class="flex-1 flex justify-center md:justify-end">
+                    <img src="./Logos/Disclaimer.png" alt="Disclaimer" class="h-16 w-auto object-contain rounded-sm">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- AGENDA DATA ---
+            const agendaData = [
+                {
+                    time: "08:00 a.m. - 10:00 a.m.",
+                    title: "Fase 1: Apertura y Conceptualización",
+                    details: [
+                        "<strong>08:00 a.m.</strong> - Registro y conformación de equipos.",
+                        "<strong>08:30 a.m.</strong> - Bienvenida (PIIA) y alineación con Resultados de Aprendizaje.",
+                        "<strong>09:30 a.m.</strong> - Primer Refrigerio ☕."
+                    ],
+                    icon: "🌅"
+                },
+                {
+                    time: "10:00 a.m. - 12:00 p.m.",
+                    title: "Fase 2: Diseño y Prompting",
+                    details: [
+                        "<strong>10:00 a.m.</strong> - Taller práctico de diseño de instrucciones estructuradas.",
+                        "<strong>11:15 a.m.</strong> - Interacción técnica con la IA para generar el borrador del PMV."
+                    ],
+                    icon: "🧠"
+                },
+                {
+                    time: "01:00 p.m. - 03:00 p.m.",
+                    title: "Fase 3: Curaduría Humana y Producción",
+                    details: [
+                        "<strong>12:00 p.m.</strong> - Almuerzo Institucional 🥘.",
+                        "<strong>01:00 p.m.</strong> - Revisión crítica, edición manual y ajuste académico.",
+                        "<strong>02:00 p.m.</strong> - Consolidación del producto y diseño de evaluación."
+                    ],
+                    icon: "⚙️"
+                },
+                {
+                    time: "03:00 p.m. - 04:30 p.m.",
+                    title: "Fase 4: Trazabilidad y Ética",
+                    details: [
+                        "<strong>03:00 p.m.</strong> - Segundo Refrigerio ☕.",
+                        "<strong>03:20 p.m.</strong> - Aplicación de Lista de Cotejo Ética (PIIA).",
+                        "<strong>04:00 p.m.</strong> - Carga de evidencias en Teams y cierre."
+                    ],
+                    icon: "✅"
+                }
+            ];
+
+            // --- ROLES DATA ---
+            const rolesData = [
+                { 
+                    id: "coord", name: "Coordinador/a de Diseño", icon: "🧭", focus: "Coherencia Curricular",
+                    morning: [
+                        "Garantiza que el PMV esté alineado con los Resultados de Aprendizaje del curso.",
+                        "Verifica que el material solicitado a la IA no desvíe el diseño curricular oficial.",
+                        "Lidera la toma de decisiones sobre el tipo de apoyo educativo a crear."
+                    ],
+                    afternoon: [
+                        "Aprueba la versión final del apoyo didáctico.",
+                        "Supervisa que la 'voz' institucional y académica de la UNED se mantenga en el producto.",
+                        "Firma el compromiso de calidad pedagógica."
+                    ]
+                },
+                { 
+                    id: "ia", name: "Especialista en IA", icon: "💻", focus: "Mediación Cognitiva",
+                    morning: [
+                        "Lidera la interacción técnica con las herramientas (ChatGPT, Claude, etc.).",
+                        "Diseña los prompts estructurados (Persona + Contexto + Tarea + Restricciones).",
+                        "Experimenta con diversos modelos para encontrar la respuesta más precisa."
+                    ],
+                    afternoon: [
+                        "Ajusta los contenidos mediante 'prompts' de refinamiento.",
+                        "Define el nivel de transparencia (qué parte hizo la IA y qué parte el humano).",
+                        "Vela por la optimización técnica del producto generado."
+                    ]
+                },
+                { 
+                    id: "eval", name: "Diseñador/a de Evaluación", icon: "📊", focus: "Calidad de Medición",
+                    morning: [
+                        "Define los criterios de evaluación del estudiante que usará el apoyo.",
+                        "Identifica qué competencias de pensamiento crítico se evaluarán con el uso de IA.",
+                        "Planifica la integración del material en el entorno virtual."
+                    ],
+                    afternoon: [
+                        "Construye la rúbrica de evaluación basada en desempeño.",
+                        "Incluye el uso ético y reflexivo de la IA como un criterio evaluativo explícito.",
+                        "Valida que el material sea útil para el proceso evaluativo de la cátedra."
+                    ]
+                },
+                { 
+                    id: "etica", name: "Responsable de Ética y PIIA", icon: "⚖️", focus: "Gobernanza Institucional",
+                    morning: [
+                        "Garantiza que no se carguen datos sensibles o privados a herramientas de IA.",
+                        "Vigila la aparición de sesgos cognitivos o culturales en las primeras respuestas de la IA.",
+                        "Mantiene los 9 principios de la PIIA visibles en la mesa de trabajo."
+                    ],
+                    afternoon: [
+                        "Lidera el llenado del Certificado de Cumplimiento Ético.",
+                        "Detecta automatización excesiva (evitando el reemplazo total del docente).",
+                        "Valida la declaración de transparencia del producto final."
+                    ]
+                },
+                { 
+                    id: "doc", name: "Documentador/a de Trazabilidad", icon: "📝", focus: "Evidencia Institucional",
+                    morning: [
+                        "Inicia la Bitácora de Trazabilidad en Teams.",
+                        "Registra los prompts 'maestros' que sirvieron como base para el diseño.",
+                        "Anota las limitaciones encontradas en la IA durante la mañana."
+                    ],
+                    afternoon: [
+                        "Captura la evolución del producto: 'IA propuso X -> Nosotros ajustamos Y'.",
+                        "Sistematiza los archivos finales para la subida a la carpeta de Evidencias.",
+                        "Asegura que el nombre de los archivos cumpla con la nomenclatura establecida."
+                    ]
+                }
+            ];
+
+            // --- PRINCIPIOS ETICOS ---
+            const principiosEticos = [
+                { label: 'Integridad', color: '#002f5d', text: 'Honestidad académica: no plagio, atribución clara y compromiso con la verdad.' },
+                { label: 'Supervisión', color: '#004a8f', text: 'Control humano total: el docente valida cada palabra y decisión generada por la IA.' },
+                { label: 'Equidad', color: '#0064c1', text: 'Inclusión territorial: asegurar que la tecnología no genere brechas de acceso en las sedes.' },
+                { label: 'Transparencia', color: '#00b4d8', text: 'Declaración explícita: el estudiante y la cátedra saben exactamente dónde se usó IA.' },
+                { label: 'Sostenibilidad', color: '#48cae4', text: 'Uso racional de recursos: equilibrio entre innovación digital y huella energética/ética.' },
+                { label: 'Crítico', color: '#0077b6', text: 'Validación reflexiva: cuestionar siempre los resultados de la IA para evitar alucinaciones.' },
+                { label: 'Seguridad', color: '#023e8a', text: 'Protección de datos: no exponer información privada institucional o de estudiantes.' },
+                { label: 'Autonomía', color: '#03045e', text: 'Libertad de cátedra: la IA apoya el proceso pero no dicta el contenido soberano del docente.' },
+                { label: 'Creatividad', color: '#0096c7', text: 'Nuevas mediaciones: usar la IA para potenciar ideas que antes no eran posibles.' }
+            ];
+
+            // --- RENDER AGENDA ---
+            const agendaContainer = document.getElementById('agenda-container');
+            agendaData.forEach((item, idx) => {
+                const isOpen = idx === 0 ? 'open' : '';
+                agendaContainer.innerHTML += `
+                    <div class="border-b border-slate-200 last:border-0">
+                        <button class="w-full text-left px-8 py-6 flex items-center justify-between hover:bg-slate-50 transition-colors agenda-toggle focus:outline-none">
+                            <div class="flex items-center gap-6">
+                                <span class="text-4xl filter grayscale hover:grayscale-0 transition-all">${item.icon}</span>
+                                <div>
+                                    <p class="text-xs font-black text-[#00b4d8] uppercase tracking-widest mb-1">${item.time}</p>
+                                    <h3 class="text-xl font-bold text-[#002f5d]">${item.title}</h3>
+                                </div>
+                            </div>
+                            <span class="chevron transition-transform duration-300 text-slate-400 ${isOpen ? 'rotate-180' : ''}">▼</span>
+                        </button>
+                        <div class="px-8 bg-slate-50 accordion-content ${isOpen}">
+                            <div class="ml-16 py-4">
+                                <ul class="space-y-4">
+                                    ${item.details.map(d => `
+                                        <li class="flex items-center gap-3 text-slate-600">
+                                            <span class="w-1.5 h-1.5 bg-[#00b4d8] rounded-full"></span>
+                                            <span class="text-sm font-medium">${d}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.querySelectorAll('.agenda-toggle').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const content = btn.nextElementSibling;
+                    const chevron = btn.querySelector('.chevron');
+                    content.classList.toggle('open');
+                    chevron.classList.toggle('rotate-180');
+                });
+            });
+
+            // --- RENDER ROLES (MASTER-DETAIL) ---
+            const roleButtonsContainer = document.getElementById('role-buttons');
+            const roleDetailsPanel = document.getElementById('role-details-panel');
+
+            rolesData.forEach((role, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-6 py-5 rounded-2xl border border-slate-200 bg-white hover:border-[#00b4d8] transition-all role-btn group flex items-center gap-4`;
+                btn.innerHTML = `
+                    <span class="text-3xl transition-transform group-hover:scale-110">${role.icon}</span>
+                    <div class="flex-grow">
+                        <p class="font-bold text-slate-800">${role.name}</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${role.focus}</p>
+                    </div>
+                `;
+                btn.onclick = () => {
+                    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active-role-btn', 'shadow-md', 'border-[#00b4d8]'));
+                    btn.classList.add('active-role-btn', 'shadow-md');
+                    roleDetailsPanel.innerHTML = `
+                        <div class="animate-in fade-in slide-in-from-right duration-300">
+                            <div class="flex items-center gap-5 mb-8 border-b border-slate-100 pb-6">
+                                <span class="text-5xl bg-slate-100 w-20 h-20 flex items-center justify-center rounded-3xl">${role.icon}</span>
+                                <div>
+                                    <h3 class="text-3xl font-bold text-[#002f5d]">${role.name}</h3>
+                                    <p class="text-[#00b4d8] font-bold text-sm uppercase tracking-widest">Líder de ${role.focus}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-10">
+                                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                                    <h4 class="text-amber-800 font-black text-xs uppercase mb-4 flex items-center gap-2">
+                                        <span class="w-3 h-3 bg-amber-400 rounded-full"></span> Mañana: Fases 1 y 2 (Conceptualización y Prompting)
+                                    </h4>
+                                    <ul class="space-y-3">
+                                        ${role.morning.map(t => `<li class="text-sm text-slate-700 pl-6 relative">
+                                            <span class="absolute left-0 top-1 font-bold text-amber-500">→</span> ${t}
+                                        </li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                                    <h4 class="text-indigo-800 font-black text-xs uppercase mb-4 flex items-center gap-2">
+                                        <span class="w-3 h-3 bg-indigo-400 rounded-full"></span> Tarde: Fases 3 y 4 (Curaduría y Ética)
+                                    </h4>
+                                    <ul class="space-y-3">
+                                        ${role.afternoon.map(t => `<li class="text-sm text-slate-700 pl-6 relative">
+                                            <span class="absolute left-0 top-1 font-bold text-indigo-500">→</span> ${t}
+                                        </li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                };
+                roleButtonsContainer.appendChild(btn);
+                if (idx === 0) btn.click();
+            });
+
+            // --- ETHICS CHART ---
+            const ctx = document.getElementById('ethicsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: principiosEticos.map(p => p.label),
+                    datasets: [{
+                        data: Array(9).fill(1),
+                        backgroundColor: principiosEticos.map(p => p.color),
+                        borderWidth: 4, borderColor: '#ffffff',
+                        hoverOffset: 20
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: { legend: { display: false } },
+                    onClick: (_, el) => {
+                        if (el.length > 0) {
+                            const p = principiosEticos[el[0].index];
+                            const detailBox = document.getElementById('ethics-detail');
+                            detailBox.style.borderColor = p.color;
+                            detailBox.innerHTML = `
+                                <div class="animate-in fade-in duration-300">
+                                    <h3 class="text-2xl font-bold mb-3" style="color: ${p.color}">${p.label}</h3>
+                                    <p class="text-slate-700 text-lg leading-relaxed">${p.text}</p>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+            });
+
+            // --- CHECKLIST LOGIC ---
+            document.querySelectorAll('.toggle-done').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isDone = btn.classList.contains('bg-[#002f5d]');
+                    if(isDone) {
+                        btn.classList.remove('bg-[#002f5d]', 'text-white');
+                        btn.innerText = 'Pendiente de Subir';
+                        btn.parentElement.classList.remove('opacity-50', 'bg-slate-50');
+                    } else {
+                        btn.classList.add('bg-[#002f5d]', 'text-white');
+                        btn.innerText = '✅ Subido a Teams';
+                        btn.parentElement.classList.add('opacity-50', 'bg-slate-50');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
