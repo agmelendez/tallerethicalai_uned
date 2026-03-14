@@ -292,14 +292,14 @@
                     id: 'empresarialidad', name: 'Empresarialidad', icon: '🏢',
                     bg: 'linear-gradient(135deg, #002f5d 0%, #004a8f 100%)', accent: '#002f5d',
                     desc: 'Unidad didáctica, metodología de casos y podcasts del curso Empresarialidad.',
-                    basePath: 'Materiales/Empresarialidad/Empresarialidad',
+                    basePath: 'MaterialesTaller/Empresarialidad',
                     items: [
                         { name: '04121.pdf', type: 'pdf' },
                         { name: 'ENLACES-PODCATS-04121.docx', type: 'docx' },
                         { name: 'Método de Casos_FINAL.pdf', type: 'pdf' },
                         { name: 'UD4121_Empresarialidad_VEUNED.pdf', type: 'pdf' },
                         { name: 'Documentos generales', type: 'folder',
-                          basePath: 'Materiales/Empresarialidad/Empresarialidad/Documentos generales',
+                          basePath: 'MaterialesTaller/Empresarialidad/Documentos generales',
                           items: [
                             { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
                             { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
@@ -317,14 +317,14 @@
                     id: 'neuroeducacion', name: 'Neuroeducación', icon: '🧠',
                     bg: 'linear-gradient(135deg, #0077b6 0%, #00b4d8 100%)', accent: '#0077b6',
                     desc: 'Guías de trabajo, orientaciones académicas y lecturas de neurociencia.',
-                    basePath: 'Materiales/Neuroeducación/Neuroeducación',
+                    basePath: 'MaterialesTaller/Neuroeducación',
                     items: [
                         { name: 'Orientación Académica Neuroeducación IC 2026.pdf', type: 'pdf' },
                         { name: 'Guía de Trabajo Unidad 1 Diario de un cerebro.pdf', type: 'pdf' },
                         { name: 'Guía  de Trabajo Unidad 1 Neurocápsula.pdf', type: 'pdf' },
                         { name: 'Generalidades Neurociencia_Cátedra Psicología Educativa.pdf', type: 'pdf' },
                         { name: 'Documentos generales', type: 'folder',
-                          basePath: 'Materiales/Neuroeducación/Neuroeducación/Documentos generales',
+                          basePath: 'MaterialesTaller/Neuroeducación/Documentos generales',
                           items: [
                             { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
                             { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
@@ -342,7 +342,7 @@
                     id: 'programacion-web', name: 'Programación Web', icon: '💻',
                     bg: 'linear-gradient(135deg, #4338ca 0%, #6366f1 100%)', accent: '#4338ca',
                     desc: 'Unidad didáctica, talleres prácticos y orientaciones del curso Programación en Web.',
-                    basePath: 'Materiales/ProgramaciónWeb/ProgramaciónWeb',
+                    basePath: 'MaterialesTaller/ProgramaciónWeb',
                     items: [
                         { name: 'Unidad Didactica Programacion Web.pdf', type: 'pdf' },
                         { name: 'Orientacion Academica 03098 Programacion en Web.pdf', type: 'pdf' },
@@ -350,7 +350,7 @@
                         { name: 'Taller No.2-03098-3C-2025.pdf', type: 'pdf' },
                         { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
                         { name: 'Documentos generales', type: 'folder',
-                          basePath: 'Materiales/ProgramaciónWeb/ProgramaciónWeb/Documentos generales',
+                          basePath: 'MaterialesTaller/ProgramaciónWeb/Documentos generales',
                           items: [
                             { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
                             { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
@@ -368,7 +368,7 @@
                     id: 'taller-tfg', name: 'Taller Investigación TFG', icon: '🔬',
                     bg: 'linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%)', accent: '#0d9488',
                     desc: 'Materiales para el taller de investigación y elaboración del Trabajo Final de Graduación.',
-                    basePath: 'Materiales/Taller de investigación TFG/Taller de investigación TFG',
+                    basePath: 'MaterialesTaller/Taller de investigación TFG',
                     items: [
                         { name: 'OA_Taller_TFG_2026.pdf', type: 'pdf' },
                         { name: 'Explicacion_Dinamica_IA.pdf', type: 'pdf' },
@@ -376,7 +376,7 @@
                         { name: 'Exploraciónbásica_IA_ChatGpt.pdf', type: 'pdf' },
                         { name: 'infografia_2.png', type: 'image' },
                         { name: 'Documentos generales', type: 'folder',
-                          basePath: 'Materiales/Taller de investigación TFG/Taller de investigación TFG/Documentos generales',
+                          basePath: 'MaterialesTaller/Taller de investigación TFG/Documentos generales',
                           items: [
                             { name: 'Asistente para el uso Universitario ético de IA.docx', type: 'docx' },
                             { name: 'Bitácora de trazabilidad ética.docx', type: 'docx' },
