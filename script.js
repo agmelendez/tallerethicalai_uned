@@ -266,6 +266,13 @@
             // --- MATERIALES DESCARGABLES ---
             const materialesData = [
                 {
+                    id: 'presentaciones', name: 'Presentaciones', icon: '📽️',
+                    bg: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', accent: '#f59e0b',
+                    desc: 'Presentaciones de todos los módulos del taller alojadas en SharePoint.',
+                    isExternal: true,
+                    externalUrl: 'https://unedaccr.sharepoint.com/:f:/s/TallerIAGenerativa-ERASMUS/IgARZfQTnOsgR77Yupi8R41LAarYTMGVF1MClWThEiggPls?e=BOLfTw'
+                },
+                {
                     id: 'documentos-generales', name: 'Documentos Generales', icon: '📂',
                     bg: 'linear-gradient(135deg, #64748b 0%, #94a3b8 100%)', accent: '#64748b',
                     desc: 'Archivos generales, bitácoras, listas de chequeo y guías para el taller.',
@@ -410,29 +417,49 @@
             function matRenderCards() {
                 const container = document.getElementById('mat-folder-cards');
                 materialesData.forEach((folder, idx) => {
-                    const files = folder.items.filter(i => i.type !== 'folder').length;
-                    const folders = folder.items.filter(i => i.type === 'folder').length;
                     const card = document.createElement('button');
-                    card.className = 'mat-folder-card text-left p-6 rounded-2xl text-white shadow-md hover:shadow-xl focus:outline-none relative overflow-hidden group';
+                    card.className = 'mat-folder-card text-left p-6 rounded-2xl text-white shadow-md hover:shadow-xl focus:outline-none relative overflow-hidden group flex flex-col items-start justify-start h-full min-h-[180px]';
                     card.style.background = folder.bg;
                     card.dataset.idx = idx;
-                    card.setAttribute('aria-label', 'Abrir carpeta ' + folder.name);
-                    card.innerHTML = `
-                        <div class="absolute -right-3 -bottom-3 text-8xl opacity-10 group-hover:opacity-20 transition-all select-none pointer-events-none">${folder.icon}</div>
-                        <div class="relative z-10">
-                            <div class="text-4xl mb-3">${folder.icon}</div>
-                            <h3 class="text-base font-bold leading-tight mb-1">${folder.name}</h3>
-                            <p class="text-xs text-white/70 mb-4 leading-relaxed line-clamp-2">${folder.desc}</p>
-                            <div class="flex items-center gap-2 text-xs font-semibold text-white/80 mb-4">
-                                <span class="bg-white/20 px-2 py-0.5 rounded-full">${files} archivo${files !== 1 ? 's' : ''}</span>
-                                ${folders > 0 ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${folders} carpeta${folders !== 1 ? 's' : ''}</span>` : ''}
+                    card.setAttribute('aria-label', folder.isExternal ? 'Abrir enlace externo ' + folder.name : 'Abrir carpeta ' + folder.name);
+
+                    if (folder.isExternal) {
+                        card.innerHTML = `
+                            <div class="absolute -right-3 -bottom-3 text-8xl opacity-10 group-hover:opacity-20 transition-all select-none pointer-events-none">${folder.icon}</div>
+                            <div class="relative z-10 w-full flex-grow flex flex-col h-full">
+                                <div class="text-4xl mb-3">${folder.icon}</div>
+                                <h3 class="text-base font-bold leading-tight mb-1">${folder.name}</h3>
+                                <p class="text-xs text-white/70 mb-4 leading-relaxed line-clamp-2">${folder.desc}</p>
+                                <div class="mt-auto">
+                                    <div class="flex items-center gap-1.5 text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all w-full justify-center py-2 rounded-xl">
+                                        Abrir en SharePoint ↗
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5 text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all w-full justify-center py-2 rounded-xl">
-                                Abrir carpeta →
+                        `;
+                        card.addEventListener('click', () => window.open(folder.externalUrl, '_blank'));
+                    } else {
+                        const files = folder.items.filter(i => i.type !== 'folder').length;
+                        const folders = folder.items.filter(i => i.type === 'folder').length;
+                        card.innerHTML = `
+                            <div class="absolute -right-3 -bottom-3 text-8xl opacity-10 group-hover:opacity-20 transition-all select-none pointer-events-none">${folder.icon}</div>
+                            <div class="relative z-10 w-full flex-grow flex flex-col h-full">
+                                <div class="text-4xl mb-3">${folder.icon}</div>
+                                <h3 class="text-base font-bold leading-tight mb-1">${folder.name}</h3>
+                                <p class="text-xs text-white/70 mb-4 leading-relaxed line-clamp-2">${folder.desc}</p>
+                                <div class="mt-auto">
+                                    <div class="flex items-center gap-2 text-xs font-semibold text-white/80 mb-4">
+                                        <span class="bg-white/20 px-2 py-0.5 rounded-full">${files} archivo${files !== 1 ? 's' : ''}</span>
+                                        ${folders > 0 ? `<span class="bg-white/20 px-2 py-0.5 rounded-full">${folders} carpeta${folders !== 1 ? 's' : ''}</span>` : ''}
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all w-full justify-center py-2 rounded-xl">
+                                        Abrir carpeta →
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                    card.addEventListener('click', () => matOpenFolder(idx));
+                        `;
+                        card.addEventListener('click', () => matOpenFolder(idx));
+                    }
                     container.appendChild(card);
                 });
             }
