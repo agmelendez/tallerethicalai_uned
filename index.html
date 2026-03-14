@@ -24,35 +24,7 @@
          4. Marco Ético -> Gráfico de Anillo (Chart.js) para los 9 principios de la PIIA. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Logos are loaded from official UNED assets. -->
 
-    <style>
-        html { scroll-behavior: smooth; }
-        :root {
-            --uned-blue: #002f5d;
-            --ethical-cyan: #00b4d8;
-        }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b; }
-        
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container { height: 400px; max-width: 600px; }
-        }
-
-        .active-role-btn { background-color: var(--ethical-cyan); color: white; border-color: var(--ethical-cyan); }
-        .accordion-content { transition: max-height 0.3s ease-in-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
-        .accordion-content.open { max-height: 800px; padding-top: 1rem; padding-bottom: 1rem; }
-        
-        .step-pill { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: #e2e8f0; color: #002f5d; }
-        .methodology-card:hover { border-color: var(--ethical-cyan); transform: translateY(-2px); }
-        .uned-header { background: linear-gradient(135deg, #002f5d 0%, #004a8f 100%); }
-    </style>
+    <link href="./styles.css" rel="stylesheet">
 </head>
 <body class="antialiased flex flex-col min-h-screen">
 
@@ -67,15 +39,17 @@
                 </div>
                 <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600">
                     <a href="#repositorio" class="hover:text-[#00b4d8] transition-colors">Recursos</a>
+                    <a href="#materiales" class="hover:text-[#00b4d8] transition-colors">Materiales</a>
                     <a href="#ruta" class="hover:text-[#00b4d8] transition-colors">Ruta</a>
                     <a href="#agenda" class="hover:text-[#00b4d8] transition-colors">Agenda</a>
                     <a href="#roles" class="hover:text-[#00b4d8] transition-colors">Roles</a>
                     <a href="#etica" class="hover:text-[#00b4d8] transition-colors">Marco Ético</a>
+                    <a href="#ciberseguridad" class="hover:text-[#00b4d8] transition-colors">Seguridad</a>
                     <a href="#equipo" class="hover:text-[#00b4d8] transition-colors">Equipo</a>
-                    <a href="https://www.ethicalaiucr.info/index.php" target="_blank" class="px-4 py-2 bg-[#00b4d8] text-white rounded-lg hover:bg-[#0097a7] transition-all shadow-md">Web Oficial</a>
+                    <a href="https://www.ethicalaiucr.info/index.php" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#00b4d8] text-white rounded-lg hover:bg-[#0097a7] transition-all shadow-md">Web Oficial</a>
                     <div class="flex items-center gap-4 ml-2 pl-4 border-l border-slate-200">
-                        <img src="./Logos/UNED.png" alt="UNED Logo" class="h-10 w-auto object-contain">
-                        <img src="./Logos/Erasmus.png" alt="Erasmus Logo" class="h-10 w-auto object-contain">
+                        <img loading="lazy" src="./Logos/UNED.png" alt="UNED Logo" class="h-10 w-auto object-contain">
+                        <img loading="lazy" src="./Logos/Erasmus.png" alt="Erasmus Logo" class="h-10 w-auto object-contain">
                     </div>
                 </div>
             </div>
@@ -140,6 +114,38 @@
                         </div>
                     </div>
                     <div class="absolute -right-10 -bottom-10 text-[180px] opacity-10 pointer-events-none">🏢</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERIALES DESCARGABLES -->
+        <section id="materiales" class="scroll-mt-24">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-2">📂 Materiales Descargables</h2>
+                <p class="text-slate-600 max-w-3xl">Seleccione la carpeta de su curso para explorar y descargar todos los materiales del taller. Cada carpeta contiene documentos específicos y documentos generales compartidos.</p>
+            </div>
+
+            <!-- Folder cards grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6" id="mat-folder-cards">
+                <!-- Injected by JS -->
+            </div>
+
+            <!-- File Explorer Panel -->
+            <div id="mat-explorer" class="hidden bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <!-- Explorer toolbar / breadcrumb -->
+                <div class="flex items-center gap-3 px-6 py-4 bg-slate-50 border-b border-slate-200 flex-wrap gap-y-2">
+                    <button id="mat-back-btn" style="display:none"
+                        class="flex items-center gap-1.5 text-sm font-semibold text-[#002f5d] hover:text-[#00b4d8] transition-colors py-1.5 px-3 rounded-lg hover:bg-white border border-slate-200 shadow-sm">
+                        ← Atrás
+                    </button>
+                    <div id="mat-breadcrumb" class="flex items-center gap-2 text-sm flex-wrap flex-grow"></div>
+                    <button id="mat-close-btn"
+                        class="ml-auto w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-all font-bold text-base flex-shrink-0"
+                        title="Cerrar explorador">✕</button>
+                </div>
+                <!-- Content area -->
+                <div id="mat-content" class="p-6 min-h-[280px]">
+                    <!-- Injected by JS -->
                 </div>
             </div>
         </section>
@@ -238,6 +244,43 @@
             </div>
         </section>
 
+        
+        <!-- Ciberseguridad y Auditoría -->
+        <section id="ciberseguridad" class="scroll-mt-24 mb-20 bg-slate-900 text-white p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 text-[200px] opacity-5 pointer-events-none">🛡️</div>
+            <div class="relative z-10 text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#00b4d8] mb-4">🛡️ Espacio de Ciberseguridad y Auditoría</h2>
+                <p class="text-slate-300 max-w-3xl mx-auto">Garantizamos la integridad, confidencialidad y trazabilidad de los datos en cada etapa del desarrollo de capacidades en IA.</p>
+            </div>
+
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Data Privacy -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-[#00b4d8] transition-all">
+                    <div class="text-3xl mb-4 text-[#00b4d8]">🔒</div>
+                    <h3 class="font-bold text-lg mb-2">Privacidad de Datos</h3>
+                    <p class="text-sm text-slate-300">Cumplimiento estricto de las normativas vigentes sobre protección de datos personales.</p>
+                </div>
+                <!-- Continuous Audit -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-[#00b4d8] transition-all">
+                    <div class="text-3xl mb-4 text-[#00b4d8]">🔍</div>
+                    <h3 class="font-bold text-lg mb-2">Auditoría Continua</h3>
+                    <p class="text-sm text-slate-300">Monitoreo constante de los algoritmos para evitar sesgos y asegurar decisiones éticas.</p>
+                </div>
+                <!-- Secure Access -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-[#00b4d8] transition-all">
+                    <div class="text-3xl mb-4 text-[#00b4d8]">🔑</div>
+                    <h3 class="font-bold text-lg mb-2">Accesos Seguros</h3>
+                    <p class="text-sm text-slate-300">Autenticación robusta y control de permisos basados en el rol (RBAC).</p>
+                </div>
+                <!-- Traceability -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-[#00b4d8] transition-all">
+                    <div class="text-3xl mb-4 text-[#00b4d8]">📜</div>
+                    <h3 class="font-bold text-lg mb-2">Trazabilidad Total</h3>
+                    <p class="text-sm text-slate-300">Registros inmutables de las operaciones e interacciones con el ecosistema de IA.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- 6. Entregables Finales -->
         <section id="entregables" class="scroll-mt-24 mb-20">
             <div class="mb-10">
@@ -290,403 +333,20 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex-1 flex justify-center md:justify-start">
-                    <img src="./Logos/Confianciado UE.png" alt="Cofinanciado por la UE" class="h-16 w-auto object-contain rounded-sm">
+                    <img loading="lazy" src="./Logos/Confianciado UE.png" alt="Cofinanciado por la UE" class="h-16 w-auto object-contain rounded-sm">
                 </div>
                 <div class="flex-1 text-center">
                     <p class="text-slate-300 font-medium mb-2 text-sm">"La inteligencia artificial potencia nuestra humanidad, no la sustituye."</p>
                     <p class="text-xs uppercase tracking-widest text-slate-500">Taller IA Generativa • Proyecto EthicalAI Erasmus+ • 2026</p>
                 </div>
                 <div class="flex-1 flex justify-center md:justify-end">
-                    <img src="./Logos/Disclaimer.png" alt="Disclaimer" class="h-16 w-auto object-contain rounded-sm">
+                    <img loading="lazy" src="./Logos/Disclaimer.png" alt="Disclaimer" class="h-16 w-auto object-contain rounded-sm">
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts Logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- AGENDA DATA ---
-            const agendaData = [
-                {
-                    time: "08:00 a.m. - 10:00 a.m.",
-                    title: "Fase 1: Apertura y Conceptualización",
-                    details: [
-                        "<strong>08:00 a.m.</strong> - Registro y conformación de equipos.",
-                        "<strong>08:30 a.m.</strong> - Bienvenida (PIIA) y alineación con Resultados de Aprendizaje.",
-                        "<strong>09:30 a.m.</strong> - Primer Refrigerio ☕."
-                    ],
-                    icon: "🌅"
-                },
-                {
-                    time: "10:00 a.m. - 12:00 p.m.",
-                    title: "Fase 2: Diseño y Prompting",
-                    details: [
-                        "<strong>10:00 a.m.</strong> - Taller práctico de diseño de instrucciones estructuradas.",
-                        "<strong>11:15 a.m.</strong> - Interacción técnica con la IA para generar el borrador del PMV."
-                    ],
-                    icon: "🧠"
-                },
-                {
-                    time: "01:00 p.m. - 03:00 p.m.",
-                    title: "Fase 3: Curaduría Humana y Producción",
-                    details: [
-                        "<strong>12:00 p.m.</strong> - Almuerzo Institucional 🥘.",
-                        "<strong>01:00 p.m.</strong> - Revisión crítica, edición manual y ajuste académico.",
-                        "<strong>02:00 p.m.</strong> - Consolidación del producto y diseño de evaluación."
-                    ],
-                    icon: "⚙️"
-                },
-                {
-                    time: "03:00 p.m. - 04:30 p.m.",
-                    title: "Fase 4: Trazabilidad y Ética",
-                    details: [
-                        "<strong>03:00 p.m.</strong> - Segundo Refrigerio ☕.",
-                        "<strong>03:20 p.m.</strong> - Aplicación de Lista de Cotejo Ética (PIIA).",
-                        "<strong>04:00 p.m.</strong> - Carga de evidencias en Teams y cierre."
-                    ],
-                    icon: "✅"
-                }
-            ];
-
-            // --- ROLES DATA ---
-            const rolesData = [
-                { 
-                    id: "coord", name: "Coordinador/a de Diseño", icon: "🧭", focus: "Coherencia Curricular",
-                    morning: [
-                        "Garantiza que el PMV esté alineado con los Resultados de Aprendizaje del curso.",
-                        "Verifica que el material solicitado a la IA no desvíe el diseño curricular oficial.",
-                        "Lidera la toma de decisiones sobre el tipo de apoyo educativo a crear."
-                    ],
-                    afternoon: [
-                        "Aprueba la versión final del apoyo didáctico.",
-                        "Supervisa que la 'voz' institucional y académica de la UNED se mantenga en el producto.",
-                        "Firma el compromiso de calidad pedagógica."
-                    ]
-                },
-                { 
-                    id: "ia", name: "Especialista en IA", icon: "💻", focus: "Mediación Cognitiva",
-                    morning: [
-                        "Lidera la interacción técnica con las herramientas (ChatGPT, Claude, etc.).",
-                        "Diseña los prompts estructurados (Persona + Contexto + Tarea + Restricciones).",
-                        "Experimenta con diversos modelos para encontrar la respuesta más precisa."
-                    ],
-                    afternoon: [
-                        "Ajusta los contenidos mediante 'prompts' de refinamiento.",
-                        "Define el nivel de transparencia (qué parte hizo la IA y qué parte el humano).",
-                        "Vela por la optimización técnica del producto generado."
-                    ]
-                },
-                { 
-                    id: "eval", name: "Diseñador/a de Evaluación", icon: "📊", focus: "Calidad de Medición",
-                    morning: [
-                        "Define los criterios de evaluación del estudiante que usará el apoyo.",
-                        "Identifica qué competencias de pensamiento crítico se evaluarán con el uso de IA.",
-                        "Planifica la integración del material en el entorno virtual."
-                    ],
-                    afternoon: [
-                        "Construye la rúbrica de evaluación basada en desempeño.",
-                        "Incluye el uso ético y reflexivo de la IA como un criterio evaluativo explícito.",
-                        "Valida que el material sea útil para el proceso evaluativo de la cátedra."
-                    ]
-                },
-                { 
-                    id: "etica", name: "Responsable de Ética y PIIA", icon: "⚖️", focus: "Gobernanza Institucional",
-                    morning: [
-                        "Garantiza que no se carguen datos sensibles o privados a herramientas de IA.",
-                        "Vigila la aparición de sesgos cognitivos o culturales en las primeras respuestas de la IA.",
-                        "Mantiene los 9 principios de la PIIA visibles en la mesa de trabajo."
-                    ],
-                    afternoon: [
-                        "Lidera el llenado del Certificado de Cumplimiento Ético.",
-                        "Detecta automatización excesiva (evitando el reemplazo total del docente).",
-                        "Valida la declaración de transparencia del producto final."
-                    ]
-                },
-                { 
-                    id: "doc", name: "Documentador/a de Trazabilidad", icon: "📝", focus: "Evidencia Institucional",
-                    morning: [
-                        "Inicia la Bitácora de Trazabilidad en Teams.",
-                        "Registra los prompts 'maestros' que sirvieron como base para el diseño.",
-                        "Anota las limitaciones encontradas en la IA durante la mañana."
-                    ],
-                    afternoon: [
-                        "Captura la evolución del producto: 'IA propuso X -> Nosotros ajustamos Y'.",
-                        "Sistematiza los archivos finales para la subida a la carpeta de Evidencias.",
-                        "Asegura que el nombre de los archivos cumpla con la nomenclatura establecida."
-                    ]
-                }
-            ];
-
-            // --- PRINCIPIOS ETICOS ---
-            const principiosEticos = [
-                { label: 'Integridad', color: '#002f5d', text: 'Honestidad académica: no plagio, atribución clara y compromiso con la verdad.' },
-                { label: 'Supervisión', color: '#004a8f', text: 'Control humano total: el docente valida cada palabra y decisión generada por la IA.' },
-                { label: 'Equidad', color: '#0064c1', text: 'Inclusión territorial: asegurar que la tecnología no genere brechas de acceso en las sedes.' },
-                { label: 'Transparencia', color: '#00b4d8', text: 'Declaración explícita: el estudiante y la cátedra saben exactamente dónde se usó IA.' },
-                { label: 'Sostenibilidad', color: '#48cae4', text: 'Uso racional de recursos: equilibrio entre innovación digital y huella energética/ética.' },
-                { label: 'Crítico', color: '#0077b6', text: 'Validación reflexiva: cuestionar siempre los resultados de la IA para evitar alucinaciones.' },
-                { label: 'Seguridad', color: '#023e8a', text: 'Protección de datos: no exponer información privada institucional o de estudiantes.' },
-                { label: 'Autonomía', color: '#03045e', text: 'Libertad de cátedra: la IA apoya el proceso pero no dicta el contenido soberano del docente.' },
-                { label: 'Creatividad', color: '#0096c7', text: 'Nuevas mediaciones: usar la IA para potenciar ideas que antes no eran posibles.' }
-            ];
-
-            // --- RENDER AGENDA ---
-            const agendaContainer = document.getElementById('agenda-container');
-            agendaData.forEach((item, idx) => {
-                const isOpen = idx === 0 ? 'open' : '';
-                agendaContainer.innerHTML += `
-                    <div class="border-b border-slate-200 last:border-0">
-                        <button class="w-full text-left px-8 py-6 flex items-center justify-between hover:bg-slate-50 transition-colors agenda-toggle focus:outline-none">
-                            <div class="flex items-center gap-6">
-                                <span class="text-4xl filter grayscale hover:grayscale-0 transition-all">${item.icon}</span>
-                                <div>
-                                    <p class="text-xs font-black text-[#00b4d8] uppercase tracking-widest mb-1">${item.time}</p>
-                                    <h3 class="text-xl font-bold text-[#002f5d]">${item.title}</h3>
-                                </div>
-                            </div>
-                            <span class="chevron transition-transform duration-300 text-slate-400 ${isOpen ? 'rotate-180' : ''}">▼</span>
-                        </button>
-                        <div class="px-8 bg-slate-50 accordion-content ${isOpen}">
-                            <div class="ml-16 py-4">
-                                <ul class="space-y-4">
-                                    ${item.details.map(d => `
-                                        <li class="flex items-center gap-3 text-slate-600">
-                                            <span class="w-1.5 h-1.5 bg-[#00b4d8] rounded-full"></span>
-                                            <span class="text-sm font-medium">${d}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            document.querySelectorAll('.agenda-toggle').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const content = btn.nextElementSibling;
-                    const chevron = btn.querySelector('.chevron');
-                    content.classList.toggle('open');
-                    chevron.classList.toggle('rotate-180');
-                });
-            });
-
-            // --- RENDER ROLES (MASTER-DETAIL) ---
-            const roleButtonsContainer = document.getElementById('role-buttons');
-            const roleDetailsPanel = document.getElementById('role-details-panel');
-
-            rolesData.forEach((role, idx) => {
-                const btn = document.createElement('button');
-                btn.className = `w-full text-left px-6 py-5 rounded-2xl border border-slate-200 bg-white hover:border-[#00b4d8] transition-all role-btn group flex items-center gap-4`;
-                btn.innerHTML = `
-                    <span class="text-3xl transition-transform group-hover:scale-110">${role.icon}</span>
-                    <div class="flex-grow">
-                        <p class="font-bold text-slate-800">${role.name}</p>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${role.focus}</p>
-                    </div>
-                `;
-                btn.onclick = () => {
-                    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active-role-btn', 'shadow-md', 'border-[#00b4d8]'));
-                    btn.classList.add('active-role-btn', 'shadow-md');
-                    roleDetailsPanel.innerHTML = `
-                        <div class="animate-in fade-in slide-in-from-right duration-300">
-                            <div class="flex items-center gap-5 mb-8 border-b border-slate-100 pb-6">
-                                <span class="text-5xl bg-slate-100 w-20 h-20 flex items-center justify-center rounded-3xl">${role.icon}</span>
-                                <div>
-                                    <h3 class="text-3xl font-bold text-[#002f5d]">${role.name}</h3>
-                                    <p class="text-[#00b4d8] font-bold text-sm uppercase tracking-widest">Líder de ${role.focus}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="space-y-10">
-                                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
-                                    <h4 class="text-amber-800 font-black text-xs uppercase mb-4 flex items-center gap-2">
-                                        <span class="w-3 h-3 bg-amber-400 rounded-full"></span> Mañana: Fases 1 y 2 (Conceptualización y Prompting)
-                                    </h4>
-                                    <ul class="space-y-3">
-                                        ${role.morning.map(t => `<li class="text-sm text-slate-700 pl-6 relative">
-                                            <span class="absolute left-0 top-1 font-bold text-amber-500">→</span> ${t}
-                                        </li>`).join('')}
-                                    </ul>
-                                </div>
-                                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-                                    <h4 class="text-indigo-800 font-black text-xs uppercase mb-4 flex items-center gap-2">
-                                        <span class="w-3 h-3 bg-indigo-400 rounded-full"></span> Tarde: Fases 3 y 4 (Curaduría y Ética)
-                                    </h4>
-                                    <ul class="space-y-3">
-                                        ${role.afternoon.map(t => `<li class="text-sm text-slate-700 pl-6 relative">
-                                            <span class="absolute left-0 top-1 font-bold text-indigo-500">→</span> ${t}
-                                        </li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                };
-                roleButtonsContainer.appendChild(btn);
-                if (idx === 0) btn.click();
-            });
-
-            // --- ETHICS CHART ---
-            const ctx = document.getElementById('ethicsChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: principiosEticos.map(p => p.label),
-                    datasets: [{
-                        data: Array(9).fill(1),
-                        backgroundColor: principiosEticos.map(p => p.color),
-                        borderWidth: 4, borderColor: '#ffffff',
-                        hoverOffset: 20
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    cutout: '75%',
-                    plugins: { legend: { display: false } },
-                    onClick: (_, el) => {
-                        if (el.length > 0) {
-                            const p = principiosEticos[el[0].index];
-                            const detailBox = document.getElementById('ethics-detail');
-                            detailBox.style.borderColor = p.color;
-                            detailBox.innerHTML = `
-                                <div class="animate-in fade-in duration-300">
-                                    <h3 class="text-2xl font-bold mb-3" style="color: ${p.color}">${p.label}</h3>
-                                    <p class="text-slate-700 text-lg leading-relaxed">${p.text}</p>
-                                </div>
-                            `;
-                        }
-                    }
-                }
-            });
-
-            // --- EQUIPO FACILITADOR DATA (A-Z por nombre) ---
-            const equipoData = [
-                {
-                    nombre: "Adriana Oviedo Vega",
-                    unidad: "Rectoría",
-                    bio: "Periodista con 25 años de experiencia en la UNED, coordinadora de la estrategia de transformación digital y de iniciativas de IA y cultura digital. Ha liderado procesos de teletrabajo y comunicación institucional, aportando visión estratégica en adaptación tecnológica y ética de la IA en educación.",
-                    color: "#002f5d"
-                },
-                {
-                    nombre: "Agustín Gómez Meléndez",
-                    unidad: "Vicerrectoría de Investigación",
-                    bio: "Estadístico e investigador en IA que coordina investigación estadística en la UCR y lidera proyectos de IA en la UNED, con más de 20 años de experiencia. Trabaja en aprendizaje automático, política pública y desarrollo sostenible, promoviendo estándares éticos en análisis de datos y diseño de políticas basadas en evidencia.",
-                    color: "#004a8f"
-                },
-                {
-                    nombre: "Andrés Segura Castillo",
-                    unidad: "Vicerrectoría de Investigación",
-                    bio: "Coordinador del Laboratorio de Investigación e Innovación Tecnológica (LIIT), experto en analítica de datos, IA, Big Data y gestión tecnológica. Ha liderado proyectos nacionales e internacionales en simulación social y aplicaciones de IA para sistemas complejos y transformación digital universitaria.",
-                    color: "#0064c1"
-                },
-                {
-                    nombre: "Bryan Carranza Rodríguez",
-                    unidad: "Rectoría",
-                    bio: "Planificador económico y social de la UNED, involucrado en estudios sobre gestión universitaria y fortalecimiento de centros universitarios. Participa en evaluaciones institucionales, servicios a población con discapacidad y acciones ligadas a la estrategia de transformación digital.",
-                    color: "#00b4d8"
-                },
-                {
-                    nombre: "Daniela Jiménez Obando",
-                    unidad: "Vicerrectoría de Investigación",
-                    bio: "Gestora estratégica en emprendimiento e innovación en la UNED, con amplia experiencia en investigación sobre pymes y ecosistemas emprendedores. Ha publicado estudios sobre impactos económicos de crisis como la COVID‑19 y promueve metodologías innovadoras y ética empresarial en la integración de IA.",
-                    color: "#0077b6"
-                },
-                {
-                    nombre: "Erick Alfaro Venegas",
-                    unidad: "Escuela de Ciencias Exactas y Naturales",
-                    bio: "Ingeniero en sistemas y máster en tecnología educativa, responsable de la cátedra de Sistemas de Calidad de las TIC en la ECEN de la UNED. Su trabajo se centra en calidad de software, tecnologías de información y apoyo a carreras de ciencias e ingeniería.",
-                    color: "#023e8a"
-                },
-                {
-                    nombre: "Erika Gutiérrez Solís",
-                    unidad: "Escuela de Ciencias Sociales y Humanidades",
-                    bio: "Docente y responsable de cursos de psicología educativa en la UNED, atendiendo procesos de acompañamiento al estudiantado. Su labor se orienta a comprender el desarrollo psicológico y diseñar experiencias de aprendizaje acordes con la educación a distancia.",
-                    color: "#0096c7"
-                },
-                {
-                    nombre: "Greibin Villegas Barahona",
-                    unidad: "Vicerrectoría de Docencia",
-                    bio: "Funcionario vinculado a procesos académicos y de gestión docente en la UNED. Su rol se orienta al apoyo de la docencia a distancia y a la mejora de servicios académicos para el estudiantado.",
-                    color: "#48cae4"
-                },
-                {
-                    nombre: "Grettel Schonwandt Alvarado",
-                    unidad: "Escuela de Ciencias de la Administración",
-                    bio: "Tutora y docente en Administración en la UNED, con maestría en Administración Pública por la UCR. Su trabajo combina gestión pública, uso de tecnologías para el aprendizaje y aplicación de estándares éticos en la formación de administradores públicos.",
-                    color: "#002f5d"
-                },
-                {
-                    nombre: "Jose Miguel González Bolaños",
-                    unidad: "Dirección de Producción de Materiales Didácticos",
-                    bio: "Productor y realizador audiovisual de la UNED, responsable de spots institucionales y recursos didácticos para la educación a distancia. Se especializa en diseño y producción de materiales multimedia educativos para apoyar procesos de enseñanza-aprendizaje virtual.",
-                    color: "#004a8f"
-                },
-                {
-                    nombre: "Lizette Brenes Bonilla",
-                    unidad: "Vicerrectoría de Investigación",
-                    bio: "Investigadora e innovadora de reconocimiento internacional en educación superior y proyectos de IA. Ha sido vicerrectora de Investigación y líder de OMIPYMES+, con amplia producción académica sobre creatividad, innovación y aplicaciones éticas de la IA.",
-                    color: "#0064c1"
-                },
-                {
-                    nombre: "Luis Fernando Fallas Fallas",
-                    unidad: "Dirección de Producción de Materiales Didácticos",
-                    bio: "Doctor en Estudios de Cine con amplia trayectoria en producción audiovisual y medios educativos en la UNED. Dirige la DPMD, donde lidera estrategias de narrativas digitales y creación de materiales innovadores para la difusión de contenidos formativos y éticos en IA.",
-                    color: "#00b4d8"
-                },
-                {
-                    nombre: "Oldrik Vinicio Rodríguez Durán",
-                    unidad: "Escuela de Ciencias de la Administración",
-                    bio: "Académico vinculado a procesos de capacitación y extensión en modelos de negocios y emprendimiento en coordinación con la UNED. Participa en iniciativas de desarrollo local y economía social, apoyando formación en gestión y administración para comunidades regionales.",
-                    color: "#0077b6"
-                },
-                {
-                    nombre: "Pedro Peralta Sandí",
-                    unidad: "Escuela de Ciencias Exactas y Naturales",
-                    bio: "Académico en telecomunicaciones de la ECEN y editor de cursos como taller de investigación y práctica dirigida en el área. Impulsa metodologías innovadoras para la formulación de anteproyectos y el fortalecimiento de competencias prácticas en ingeniería de telecomunicaciones.",
-                    color: "#023e8a"
-                }
-            ];
-
-            // --- RENDER EQUIPO ---
-            const equipoContainer = document.getElementById('equipo-container');
-            equipoContainer.innerHTML = equipoData.map(persona => {
-                const initials = persona.nombre.split(' ').slice(0, 2).map(w => w[0]).join('');
-                return `
-                    <div class="bg-white p-6 rounded-2xl border-t-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col" style="border-top-color: ${persona.color}">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-extrabold text-lg flex-shrink-0" style="background-color: ${persona.color}">
-                                ${initials}
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-[#002f5d] leading-tight">${persona.nombre}</h3>
-                                <p class="text-[10px] font-bold uppercase tracking-widest mt-0.5" style="color: ${persona.color}">${persona.unidad}</p>
-                            </div>
-                        </div>
-                        <p class="text-sm text-slate-600 leading-relaxed flex-grow">${persona.bio}</p>
-                    </div>
-                `;
-            }).join('');
-
-            // --- CHECKLIST LOGIC ---
-            document.querySelectorAll('.toggle-done').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const isDone = btn.classList.contains('bg-[#002f5d]');
-                    if(isDone) {
-                        btn.classList.remove('bg-[#002f5d]', 'text-white');
-                        btn.innerText = 'Pendiente de Subir';
-                        btn.parentElement.classList.remove('opacity-50', 'bg-slate-50');
-                    } else {
-                        btn.classList.add('bg-[#002f5d]', 'text-white');
-                        btn.innerText = '✅ Subido a Teams';
-                        btn.parentElement.classList.add('opacity-50', 'bg-slate-50');
-                    }
-                });
-            });
-
-        });
-    </script>
+    <script src="./script.js" defer></script>
 </body>
 </html>

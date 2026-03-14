@@ -1,6 +1,27 @@
-body{
-  padding: 25px;
-}
-.title {
-	color: #5C6AC4;
-}
+        html { scroll-behavior: smooth; }
+        :root {
+            --uned-blue: #002f5d;
+            --ethical-cyan: #00b4d8;
+        }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 400px; max-width: 600px; }
+        }
+
+        .active-role-btn { background-color: var(--ethical-cyan); color: white; border-color: var(--ethical-cyan); }
+        .accordion-content { transition: max-height 0.3s ease-in-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
+        .accordion-content.open { max-height: 800px; padding-top: 1rem; padding-bottom: 1rem; }
+        
+        .step-pill { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: #e2e8f0; color: #002f5d; }
+        .methodology-card:hover { border-color: var(--ethical-cyan); transform: translateY(-2px); }
+        .uned-header { background: linear-gradient(135deg, #002f5d 0%, #004a8f 100%); }
