@@ -71,6 +71,7 @@
                     <a href="#agenda" class="hover:text-[#00b4d8] transition-colors">Agenda</a>
                     <a href="#roles" class="hover:text-[#00b4d8] transition-colors">Roles</a>
                     <a href="#etica" class="hover:text-[#00b4d8] transition-colors">Marco Ético</a>
+                    <a href="#equipo" class="hover:text-[#00b4d8] transition-colors">Equipo</a>
                     <a href="https://www.ethicalaiucr.info/index.php" target="_blank" class="px-4 py-2 bg-[#00b4d8] text-white rounded-lg hover:bg-[#0097a7] transition-all shadow-md">Web Oficial</a>
                     <div class="flex items-center gap-4 ml-2 pl-4 border-l border-slate-200">
                         <img src="./Logos/UNED.png" alt="UNED Logo" class="h-10 w-auto object-contain">
@@ -269,6 +270,17 @@
                     <p class="text-sm text-slate-500 mb-6 flex-grow leading-relaxed">Formulario de lista de cotejo confirmando el cumplimiento de los 9 principios éticos de la UNED.</p>
                     <button class="w-full py-3 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-[#002f5d] hover:text-white transition-all toggle-done">Pendiente de Subir</button>
                 </div>
+            </div>
+        </section>
+
+        <!-- 7. Equipo Facilitador -->
+        <section id="equipo" class="scroll-mt-24 mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#002f5d] mb-4">🧑‍🏫 Personal Facilitador</h2>
+                <p class="text-slate-600 max-w-3xl mx-auto">Perfiles del equipo UNED que acompaña este taller de formación en IA generativa ética y responsable.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="equipo-container">
+                <!-- Injected via JS -->
             </div>
         </section>
 
@@ -549,6 +561,114 @@
                     }
                 }
             });
+
+            // --- EQUIPO FACILITADOR DATA (A-Z por nombre) ---
+            const equipoData = [
+                {
+                    nombre: "Adriana Oviedo Vega",
+                    unidad: "Rectoría",
+                    bio: "Periodista con 25 años de experiencia en la UNED, coordinadora de la estrategia de transformación digital y de iniciativas de IA y cultura digital. Ha liderado procesos de teletrabajo y comunicación institucional, aportando visión estratégica en adaptación tecnológica y ética de la IA en educación.",
+                    color: "#002f5d"
+                },
+                {
+                    nombre: "Agustín Gómez Meléndez",
+                    unidad: "Vicerrectoría de Investigación",
+                    bio: "Estadístico e investigador en IA que coordina investigación estadística en la UCR y lidera proyectos de IA en la UNED, con más de 20 años de experiencia. Trabaja en aprendizaje automático, política pública y desarrollo sostenible, promoviendo estándares éticos en análisis de datos y diseño de políticas basadas en evidencia.",
+                    color: "#004a8f"
+                },
+                {
+                    nombre: "Andrés Segura Castillo",
+                    unidad: "Vicerrectoría de Investigación",
+                    bio: "Coordinador del Laboratorio de Investigación e Innovación Tecnológica (LIIT), experto en analítica de datos, IA, Big Data y gestión tecnológica. Ha liderado proyectos nacionales e internacionales en simulación social y aplicaciones de IA para sistemas complejos y transformación digital universitaria.",
+                    color: "#0064c1"
+                },
+                {
+                    nombre: "Bryan Carranza Rodríguez",
+                    unidad: "Rectoría",
+                    bio: "Planificador económico y social de la UNED, involucrado en estudios sobre gestión universitaria y fortalecimiento de centros universitarios. Participa en evaluaciones institucionales, servicios a población con discapacidad y acciones ligadas a la estrategia de transformación digital.",
+                    color: "#00b4d8"
+                },
+                {
+                    nombre: "Daniela Jiménez Obando",
+                    unidad: "Vicerrectoría de Investigación",
+                    bio: "Gestora estratégica en emprendimiento e innovación en la UNED, con amplia experiencia en investigación sobre pymes y ecosistemas emprendedores. Ha publicado estudios sobre impactos económicos de crisis como la COVID‑19 y promueve metodologías innovadoras y ética empresarial en la integración de IA.",
+                    color: "#0077b6"
+                },
+                {
+                    nombre: "Erick Alfaro Venegas",
+                    unidad: "Escuela de Ciencias Exactas y Naturales",
+                    bio: "Ingeniero en sistemas y máster en tecnología educativa, responsable de la cátedra de Sistemas de Calidad de las TIC en la ECEN de la UNED. Su trabajo se centra en calidad de software, tecnologías de información y apoyo a carreras de ciencias e ingeniería.",
+                    color: "#023e8a"
+                },
+                {
+                    nombre: "Erika Gutiérrez Solís",
+                    unidad: "Escuela de Ciencias Sociales y Humanidades",
+                    bio: "Docente y responsable de cursos de psicología educativa en la UNED, atendiendo procesos de acompañamiento al estudiantado. Su labor se orienta a comprender el desarrollo psicológico y diseñar experiencias de aprendizaje acordes con la educación a distancia.",
+                    color: "#0096c7"
+                },
+                {
+                    nombre: "Greibin Villegas Barahona",
+                    unidad: "Vicerrectoría de Docencia",
+                    bio: "Funcionario vinculado a procesos académicos y de gestión docente en la UNED. Su rol se orienta al apoyo de la docencia a distancia y a la mejora de servicios académicos para el estudiantado.",
+                    color: "#48cae4"
+                },
+                {
+                    nombre: "Grettel Schonwandt Alvarado",
+                    unidad: "Escuela de Ciencias de la Administración",
+                    bio: "Tutora y docente en Administración en la UNED, con maestría en Administración Pública por la UCR. Su trabajo combina gestión pública, uso de tecnologías para el aprendizaje y aplicación de estándares éticos en la formación de administradores públicos.",
+                    color: "#002f5d"
+                },
+                {
+                    nombre: "Jose Miguel González Bolaños",
+                    unidad: "Dirección de Producción de Materiales Didácticos",
+                    bio: "Productor y realizador audiovisual de la UNED, responsable de spots institucionales y recursos didácticos para la educación a distancia. Se especializa en diseño y producción de materiales multimedia educativos para apoyar procesos de enseñanza-aprendizaje virtual.",
+                    color: "#004a8f"
+                },
+                {
+                    nombre: "Lizette Brenes Bonilla",
+                    unidad: "Vicerrectoría de Investigación",
+                    bio: "Investigadora e innovadora de reconocimiento internacional en educación superior y proyectos de IA. Ha sido vicerrectora de Investigación y líder de OMIPYMES+, con amplia producción académica sobre creatividad, innovación y aplicaciones éticas de la IA.",
+                    color: "#0064c1"
+                },
+                {
+                    nombre: "Luis Fernando Fallas Fallas",
+                    unidad: "Dirección de Producción de Materiales Didácticos",
+                    bio: "Doctor en Estudios de Cine con amplia trayectoria en producción audiovisual y medios educativos en la UNED. Dirige la DPMD, donde lidera estrategias de narrativas digitales y creación de materiales innovadores para la difusión de contenidos formativos y éticos en IA.",
+                    color: "#00b4d8"
+                },
+                {
+                    nombre: "Oldrik Vinicio Rodríguez Durán",
+                    unidad: "Escuela de Ciencias de la Administración",
+                    bio: "Académico vinculado a procesos de capacitación y extensión en modelos de negocios y emprendimiento en coordinación con la UNED. Participa en iniciativas de desarrollo local y economía social, apoyando formación en gestión y administración para comunidades regionales.",
+                    color: "#0077b6"
+                },
+                {
+                    nombre: "Pedro Peralta Sandí",
+                    unidad: "Escuela de Ciencias Exactas y Naturales",
+                    bio: "Académico en telecomunicaciones de la ECEN y editor de cursos como taller de investigación y práctica dirigida en el área. Impulsa metodologías innovadoras para la formulación de anteproyectos y el fortalecimiento de competencias prácticas en ingeniería de telecomunicaciones.",
+                    color: "#023e8a"
+                }
+            ];
+
+            // --- RENDER EQUIPO ---
+            const equipoContainer = document.getElementById('equipo-container');
+            equipoContainer.innerHTML = equipoData.map(persona => {
+                const initials = persona.nombre.split(' ').slice(0, 2).map(w => w[0]).join('');
+                return `
+                    <div class="bg-white p-6 rounded-2xl border-t-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col" style="border-top-color: ${persona.color}">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-extrabold text-lg flex-shrink-0" style="background-color: ${persona.color}">
+                                ${initials}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-[#002f5d] leading-tight">${persona.nombre}</h3>
+                                <p class="text-[10px] font-bold uppercase tracking-widest mt-0.5" style="color: ${persona.color}">${persona.unidad}</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed flex-grow">${persona.bio}</p>
+                    </div>
+                `;
+            }).join('');
 
             // --- CHECKLIST LOGIC ---
             document.querySelectorAll('.toggle-done').forEach(btn => {
